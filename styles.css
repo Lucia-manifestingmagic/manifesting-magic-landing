@@ -410,6 +410,9 @@ h2 + .measure, h2 + .prose { margin-top: 40px; }
 }
 .card--featured { border-color: var(--ink); }
 
+/* Full width so the CTA label can't overflow a narrow card. */
+.card .btn { display: block; width: 100%; text-align: center; padding-inline: 16px; }
+
 .card__flag {
   font-size: var(--fs-eyebrow);
   font-weight: 600;

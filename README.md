@@ -21,7 +21,7 @@ python3 -m http.server 8080
 |---|---|
 | `#vsl` | Replace the div's contents with the video embed iframe. The 16:9 box, border and caption are already styled. |
 | `#lucia-portrait` | Replace with the 4:5 portrait image. Add a real `alt`. |
-| `#book-link` | The live booking URL. Every other CTA points at `#book` (the close section); only the buttons inside that section point at `#book-link`. |
+| `#book-link` | The live booking URL. Every other CTA points at `#book` (the close section); only the button inside that section points at `#book-link`. The CTA reads “Request your casting call”, so the booking form should carry qualifying questions — niche, city, revenue band — or the word overpromises. |
 
 ## Porting to Duda
 
