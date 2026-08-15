@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 
-<!-- BOOKING_URL: replace all href="#book-link" with the live booking link -->
+<!-- FORM_ENDPOINT: set the action on #apply to your form handler -->
 <!-- VSL_EMBED: replace contents of #vsl with the video embed -->
 <!-- LUCIA_PORTRAIT: replace #lucia-portrait with the 4:5 image -->
 </head>
@@ -370,7 +370,108 @@
         <p class="reveal">And when it&rsquo;s time to step back, or time to sell, that face is either an asset that stays with the business, keeps creating, keeps converting&hellip; or it&rsquo;s yours, and it&rsquo;s leaving with you. Every month you spend becoming the face of your own brand is a month you&rsquo;re building a dependency, not an asset.</p>
           <p class="reveal">On the call you&rsquo;ll see exactly which creator would front your brand, and whether your niche is still open. We take three businesses a month, one per niche and one per city. When yours is claimed, it closes.</p>
       </div>
-      <p class="reveal"><a class="btn btn--inverted" href="#book-link">Request your casting call</a></p>
+      <!-- FORM_ENDPOINT: set action to your form handler (Formspree, Basin, GHL,
+           Tally). Leave method="post". The script posts it and swaps in the
+           confirmation without a page reload. -->
+      <form class="form reveal" id="apply" action="#form-endpoint" method="post">
+        <fieldset class="form__group">
+          <legend class="form__legend">Your business</legend>
+
+          <p class="field field--wide">
+            <label for="f-business">What does your business do?</label>
+            <input type="text" id="f-business" name="business" required
+                   placeholder="Estate planning firm, med spa, roofing contractor">
+          </p>
+
+          <p class="field field--wide">
+            <label for="f-niche">Your niche and the city you serve</label>
+            <input type="text" id="f-niche" name="niche_city" required
+                   placeholder="Estate planning attorneys, Phoenix">
+            <span class="field__hint">We place one business per niche, per city. This tells us whether yours is open.</span>
+          </p>
+
+          <p class="field">
+            <label for="f-revenue">Annual revenue</label>
+            <select id="f-revenue" name="revenue" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Under $500k</option>
+              <option>$500k to $1M</option>
+              <option>$1M to $3M</option>
+              <option>$3M to $10M</option>
+              <option>Over $10M</option>
+            </select>
+          </p>
+
+          <p class="field">
+            <label for="f-spend">Current monthly ad spend</label>
+            <select id="f-spend" name="ad_spend" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Not running ads yet</option>
+              <option>Under $2,000</option>
+              <option>$2,000 to $10,000</option>
+              <option>$10,000 to $50,000</option>
+              <option>Over $50,000</option>
+            </select>
+          </p>
+
+          <p class="field">
+            <label for="f-face">Who is the face of your marketing today?</label>
+            <select id="f-face" name="current_face" required>
+              <option value="" selected disabled>Select one</option>
+              <option>I am, when I find the time</option>
+              <option>Nobody. We don&rsquo;t make video</option>
+              <option>Someone on my team</option>
+              <option>Rotating UGC creators or an agency</option>
+            </select>
+          </p>
+
+          <p class="field">
+            <label for="f-markets">Which markets do you sell to?</label>
+            <select id="f-markets" name="markets" required>
+              <option value="" selected disabled>Select one</option>
+              <option>English only</option>
+              <option>English and Spanish</option>
+              <option>Not sure yet</option>
+            </select>
+          </p>
+        </fieldset>
+
+        <fieldset class="form__group">
+          <legend class="form__legend">Where to reach you</legend>
+
+          <p class="field">
+            <label for="f-name">Name</label>
+            <input type="text" id="f-name" name="name" required autocomplete="name">
+          </p>
+
+          <p class="field">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email" required autocomplete="email">
+          </p>
+
+          <p class="field">
+            <label for="f-phone">Phone</label>
+            <input type="tel" id="f-phone" name="phone" autocomplete="tel">
+          </p>
+
+          <p class="field">
+            <label for="f-website">Website <span class="field__optional">optional</span></label>
+            <input type="url" id="f-website" name="website" placeholder="https://">
+          </p>
+        </fieldset>
+
+        <div class="form__submit">
+          <button type="submit" class="btn btn--inverted">Request your casting call</button>
+          <p class="form__note">We review every request against the niches and cities still open. A team member will be in contact shortly.</p>
+        </div>
+
+        <p class="form__error" id="form-error" role="alert" hidden></p>
+      </form>
+
+      <div class="form__done" id="form-done" role="status" hidden>
+        <p class="form__done-head">Request received.</p>
+        <p>A team member will be in contact with you shortly to confirm whether your niche and city are still open.</p>
+      </div>
     </div>
   </section>
 

@@ -21,7 +21,27 @@ python3 -m http.server 8080
 |---|---|
 | `#vsl` | Replace the div's contents with the video embed iframe. The 16:9 box, border and caption are already styled. |
 | `#lucia-portrait` | Replace with the 4:5 portrait image. Add a real `alt`. |
-| `#book-link` | The live booking URL. Every other CTA points at `#book` (the close section); only the button inside that section points at `#book-link`. The CTA reads “Request your casting call”, so the booking form should carry qualifying questions — niche, city, revenue band — or the word overpromises. |
+| `#apply` | Set the form `action` to your handler (Formspree, Basin, GHL, Tally). `script.js` posts it and swaps in the confirmation without a reload; until it is set, submitting shows a notice that the form is not connected. |
+
+Every CTA on the page scrolls to `#book`, the close section, where the
+application form lives. There is no separate booking link: "Request your
+casting call" submits the form, and a team member follows up.
+
+## The application form
+
+Six qualifying questions plus four contact fields:
+
+| Field | Why it is there |
+|---|---|
+| What does your business do? | Context for the call |
+| Your niche and the city you serve | The whole offer is one business per niche, per city. Without this you cannot tell anyone whether their slot is open. |
+| Annual revenue | The hard qualifier |
+| Current monthly ad spend | Budget signal, and whether they already understand paid media |
+| Who is the face of your marketing today? | Diagnoses which version of the problem they have |
+| Which markets do you sell to? | Routes English-only against English and Spanish |
+
+Then name, email, phone, and website. Validation is native HTML, so the form
+still works with JavaScript disabled.
 
 ## Porting to Duda
 

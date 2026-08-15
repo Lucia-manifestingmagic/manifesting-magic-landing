@@ -1,6 +1,6 @@
-/* Manifesting Magic — two behaviours: scroll reveal and the sticky mobile
-   CTA. The nav's scrolled state rides on the same hero observer the sticky
-   CTA already needs, so it costs nothing extra.
+/* Manifesting Magic — three behaviours: the application form, scroll reveal,
+   and the sticky mobile CTA. The nav's scrolled state rides on the same hero
+   observer the sticky CTA already needs, so it costs nothing extra.
    (The pricing toggle was removed with the published prices; recover it from
    the v-with-pricing tag if prices ever go back on the page.) */
 (function () {
@@ -8,6 +8,51 @@
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var supported = 'IntersectionObserver' in window;
+
+  /* --- Application form ---
+     Field validation is native, so it still works with JS off. This only
+     handles the submit: post it, then swap the form for the confirmation
+     without losing the page. */
+  var form = document.getElementById('apply');
+  var done = document.getElementById('form-done');
+  var formError = document.getElementById('form-error');
+  var PLACEHOLDER = '#form-endpoint';
+
+  function fail(message) {
+    formError.textContent = message;
+    formError.hidden = false;
+  }
+
+  if (form) {
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) return;      // let the browser report it
+      event.preventDefault();
+      formError.hidden = true;
+
+      var action = form.getAttribute('action');
+      if (!action || action.indexOf(PLACEHOLDER) !== -1) {
+        fail('This form is not connected yet. Set the form action in index.html to your form handler.');
+        return;
+      }
+
+      var button = form.querySelector('button[type="submit"]');
+      button.disabled = true;
+
+      fetch(action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      }).then(function (response) {
+        if (!response.ok) throw new Error(response.status);
+        form.hidden = true;
+        done.hidden = false;
+        done.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+      }).catch(function () {
+        button.disabled = false;
+        fail('That did not send. Please try again, or email us directly.');
+      });
+    });
+  }
 
   /* --- Scroll reveal --- */
   var items = document.querySelectorAll('.reveal');
