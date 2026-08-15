@@ -6,7 +6,7 @@ funnel. Vanilla HTML/CSS/JS, no build step, no framework, no npm.
 ```
 index.html    markup and copy
 styles.css    all styles, banded by section in page order
-script.js     pricing toggle, scroll reveal, sticky mobile CTA
+script.js     scroll reveal, sticky mobile CTA
 ```
 
 Open `index.html` directly, or serve the folder:
@@ -40,6 +40,20 @@ cannot do by transposing a `<table>`. So the markup exists in two forms — a
 hiding the other. Both are semantic and neither scrolls horizontally.
 
 **Edit both when the comparison copy changes.**
+
+## Pricing is off the page
+
+Package prices are quoted on the sales call, not published. The cards carry the
+tier name and who it is for; the number is not stated anywhere, and no floor is
+implied, so the call is free to price upward.
+
+The priced version, including the English / English + Spanish toggle and the
+JS that drove it, is preserved at the `v-with-pricing` tag:
+
+```bash
+git show v-with-pricing:index.html > index.html   # restore that version
+git diff v-with-pricing -- index.html             # see what changed
+```
 
 ## Design constraints
 

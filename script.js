@@ -1,40 +1,13 @@
-/* Manifesting Magic — three behaviours: pricing toggle, scroll reveal,
-   sticky mobile CTA. The nav's scrolled state rides on the same hero
-   observer the sticky CTA already needs, so it costs nothing extra. */
+/* Manifesting Magic — two behaviours: scroll reveal and the sticky mobile
+   CTA. The nav's scrolled state rides on the same hero observer the sticky
+   CTA already needs, so it costs nothing extra.
+   (The pricing toggle was removed with the published prices; recover it from
+   the v-with-pricing tag if prices ever go back on the page.) */
 (function () {
   'use strict';
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var supported = 'IntersectionObserver' in window;
-
-  /* --- Pricing toggle --- */
-  var toggle = document.querySelector('.toggle');
-  var prices = document.querySelectorAll('.price');
-
-  if (toggle) {
-    toggle.addEventListener('click', function (event) {
-      var button = event.target.closest('.toggle__btn');
-      if (!button) return;
-
-      var market = button.getAttribute('data-market');
-      toggle.classList.toggle('is-both', market === 'both');
-
-      toggle.querySelectorAll('.toggle__btn').forEach(function (other) {
-        other.setAttribute('aria-pressed', String(other === button));
-      });
-
-      prices.forEach(function (price) {
-        var next = price.getAttribute(market === 'both' ? 'data-both' : 'data-en');
-        if (price.textContent === next) return;
-        if (reduced) { price.textContent = next; return; }
-        price.classList.add('is-swapping');
-        window.setTimeout(function () {
-          price.textContent = next;
-          price.classList.remove('is-swapping');
-        }, 150);
-      });
-    });
-  }
 
   /* --- Scroll reveal --- */
   var items = document.querySelectorAll('.reveal');
